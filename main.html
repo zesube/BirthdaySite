@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>🎉 Happy 19th Birthday — Neon Pink & Purple</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05040a;
+    --panel: rgba(255,255,255,0.03);
+    --glass-blur: 12px;
+    --neon-pink: #ff4fa2;
+    --neon-purple: #b07bff;
+    --neon-cyan: #7ae7ff;
+    --muted: #b6b6c0;
+  }
+
+  /* Reset + base */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    background:
+      radial-gradient(900px 500px at 10% 10%, rgba(176,123,255,0.06), transparent 8%),
+      radial-gradient(900px 500px at 90% 90%, rgba(255,79,162,0.04), transparent 8%),
+      var(--bg);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    /* allow scrolling — wrap handles scroll-snap */
+    overflow:auto;
+  }
+
+  /* scroll container */
+  .wrap {
+    height:100vh;
+    width:100%;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    padding:20px;
+  }
+  section {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    scroll-snap-align:start;
+    padding:28px 12px;
+    position:relative;
+  }
+
+  .panel {
+    position:relative;
+    z-index:20; /* above stickers */
+    width:100%;
+    max-width:1100px;
+    border-radius:18px;
+    padding:28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(var(--glass-blur));
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  /* top nav */
+  .nav{ position:fixed; right:18px; top:18px; z-index:80; display:flex; gap:10px }
+  .nav button{
+    background:transparent; border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; color:var(--muted); cursor:pointer; font-weight:600;
+  }
+  .nav button:hover{ color:#fff; transform:translateY(-3px) }
+
+  /* Splash */
+  .splash{ text-align:center; display:flex; flex-direction:column; gap:12px; align-items:center }
+  .title{ font-size:clamp(26px,4.6vw,48px); color:#fff; text-shadow: 0 0 18px rgba(255,79,162,0.09), 0 0 28px rgba(176,123,255,0.06) }
+  .subtitle{ color:var(--muted) }
+
+  .cta{ display:inline-flex; gap:12px; align-items:center; padding:12px 20px; border-radius:12px; cursor:pointer; font-weight:700;
+    background:linear-gradient(135deg,var(--neon-pink), var(--neon-purple)); color:#050406;
+    box-shadow: 0 10px 30px rgba(176,123,255,0.06), 0 6px 20px rgba(255,79,162,0.06);
+  }
+  .cta:hover{ transform:translateY(-6px) }
+
+  /* Dedication layout */
+  .dedication{ display:grid; grid-template-columns: 1fr 360px; gap:24px; align-items:start }
+  .card{ padding:18px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03) }
+  .typing{ font-size:18px; color:#e9f7ff; line-height:1.6; min-height:140px }
+  .photo{ width:320px; height:320px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex-direction:column;
+    background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink)); color:#050406; font-weight:700; box-shadow: 0 12px 30px rgba(0,0,0,0.6) }
+
+  /* Music */
+  .music-panel{ display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+  .music-controls{ display:flex; gap:12px; align-items:center }
+  .btn{ background:transparent; border:1px solid rgba(255,255,255,0.06); padding:10px 14px; border-radius:10px; cursor:pointer; color:var(--muted); font-weight:600 }
+  .btn.primary{ background:linear-gradient(135deg,var(--neon-pink),var(--neon-purple)); color:#050406; border:none }
+
+  .player{ width:100%; max-width:720px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.03) }
+
+  /* Memory game */
+  .game-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:520px; margin:18px auto }
+  .cardBtn{ aspect-ratio:1/1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:30px; cursor:pointer; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); color:#fff; transition:transform .18s }
+  .cardBtn:hover{ transform:scale(1.04) }
+  .cardBtn.flipped{ background:linear-gradient(135deg,var(--neon-purple),var(--neon-pink)); color:#050406; box-shadow:0 12px 30px rgba(176,123,255,0.08) }
+
+  /* Cake area: placed in normal flow under heading and paragraph with spacing */
+  .cake-area{ display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:10px }
+  .cake-plate{ width:84%; max-width:420px; display:flex; align-items:center; justify-content:center; padding:28px 12px; border-radius:18px; background:linear-gradient(180deg,#2a2130,#1b1520); box-shadow: 0 14px 60px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.02) }
+  .cake-top{ width:80%; max-width:320px; height:110px; border-radius:60px 60px 14px 14px; background:linear-gradient(180deg,#fff0f6,#ffdfe9); display:flex; align-items:center; justify-content:center; gap:20px; position:relative }
+  .candleSmall{ width:12px; height:46px; border-radius:6px; position:relative; display:inline-block }
+  .candleSmall.pink{ background:linear-gradient(180deg,#ff9ac2,#ff4fa2) }
+  .candleSmall.purple{ background:linear-gradient(180deg,#b07bff,#8a3bff) }
+  .candleSmall.cyan{ background:linear-gradient(180deg,#7ae7ff,#4fd8ff) }
+  .flameSmall{ position:absolute; top:-16px; left:50%; transform:translateX(-50%); width:12px; height:18px; border-radius:50% 50% 40% 40%; background:radial-gradient(circle at 50% 25%, #fff8a6 0%, #ffb84a 45%, #ff7a7a 100%); box-shadow:0 6px 22px rgba(255,120,120,0.14); animation:flame 0.18s infinite alternate }
+  @keyframes flame{ from{transform:translateX(-50%) scaleY(1)} to{transform:translateX(-50%) scaleY(.86) translateY(-2px)} }
+
+  .wish-msg{ margin-top:10px; font-weight:700; color:var(--neon-pink); font-size:1.05rem; opacity:0; transition:opacity .5s }
+  .wish-msg.visible{ opacity:1 }
+
+  /* Stickers (beneath content) and confetti (above content) layering */
+  .stickers{ pointer-events:none; position:fixed; inset:0; z-index:10; overflow:hidden } /* stickers under panels (panel z-index:20) */
+  .sticker{ position:absolute; font-size:24px; opacity:.96; filter:drop-shadow(0 6px 18px rgba(0,0,0,0.45)) }
+
+  .confetti-root{ position:fixed; inset:0; pointer-events:none; z-index:90; overflow:visible }
+
+  /* Confetti piece style + animation */
+  .confetti-piece{
+    position:fixed;
+    pointer-events:none;
+    z-index:90;
+    transform: translateY(-40vh);
+    opacity:1;
+    will-change: transform, opacity;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(120vh) rotate(720deg); opacity:0; }
+  }
+
+  /* Footer */
+  footer{ position:fixed; left:20px; bottom:18px; color:var(--muted); font-size:13px; z-index:80 }
+
+  /* responsive */
+  @media (max-width:980px){
+    .dedication{ grid-template-columns:1fr; }
+    .photo{ width:260px; height:260px; }
+    .card{ padding:16px }
+    .cake-top{ height:92px }
+    .cake-plate{ padding:22px }
+  }
+  @media (max-width:560px){
+    .title{ font-size:22px }
+    .player{ height:180px }
+    .game-grid{ grid-template-columns:repeat(3,1fr) }
+    .photo{ width:200px;height:200px }
+    .panel{ padding:16px; border-radius:14px }
+    .cake-plate{ padding:18px }
+  }
+</style>
+</head>
+<body>
+  <div class="nav" aria-hidden="true">
+    <button onclick="scrollToSection(0)">Intro</button>
+    <button onclick="scrollToSection(1)">Message</button>
+    <button onclick="scrollToSection(2)">Music</button>
+    <button onclick="scrollToSection(3)">Game</button>
+    <button onclick="scrollToSection(4)">Make a Wish</button>
+  </div>
+
+  <div class="stickers" id="stickers"></div>
+  <div class="confetti-root" id="confetti-root"></div>
+
+  <div class="wrap" id="wrap">
+    <!-- Section 0: Splash -->
+    <section>
+      <div class="panel splash" role="main" aria-labelledby="splash-title">
+        <div>
+          <div class="title" id="splash-title">🎉 Happy 19th Birthday, Mommy! 🎂</div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:18px">
+            <button class="cta" id="startBtn">Start Celebration →</button>
+            <button class="btn" id="themeToggle">Switch Accent</button>
+          </div>
+          <div style="text-align:center;margin-top:10px;color:var(--muted)">Tip: Allow microphone access on the "Make a Wish" section to blow out the candles.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Dedication -->
+    <section>
+      <div class="panel dedication" aria-labelledby="dedication-heading">
+        <div class="card">
+          <h2 id="dedication-heading" style="color:var(--neon-purple);margin-bottom:10px">A Special Message</h2>
+          <div class="typing" id="typingText" aria-live="polite"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+          <div class="photo">MOMMY<br><small style="display:block;color:rgba(0,0,0,0.45);margin-top:6px">19 Years Loved</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Music -->
+    <section>
+      <div class="panel music-panel">
+        <div style="flex:1;min-width:260px">
+          <h2 style="color:var(--neon-pink);margin-bottom:6px">Birthday Music</h2>
+          <p style="color:var(--muted)">Pick a track and press Play. Confetti bursts when music starts 🎵</p>
+          <div class="music-controls" role="group" aria-label="music controls" style="margin-top:12px">
+            <select id="songSelect" class="btn" aria-label="choose song">
+              <option value="">— Choose a song —</option>
+              <option value="u84xga0lj1k">Birthday Party Mix</option>
+              <option value="S3QTRxbVDDs">Birthday Celebration Playlist</option>
+              <option value="5u4xTa3LR2U">Happy Birthday Vibes</option>
+            </select>
+            <button class="btn primary" id="playMusic">Play</button>
+            <button class="btn" id="pauseMusic">Pause</button>
+            <button class="btn" id="stopMusic">Stop</button>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:320px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div class="player" id="ytWrap" style="display:none">
+            <iframe id="ytPlayer" width="100%" height="240" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Memory Game -->
+    <section>
+      <div class="panel" style="text-align:center">
+        <h2 style="color:var(--neon-purple)">Memory Match — Unlock the Wish</h2>
+        <p style="color:var(--muted)">Match all pairs to reveal a surprise!</p>
+
+        <div class="game-grid" id="memoryGrid" aria-live="polite" aria-label="memory grid"></div>
+
+        <div style="margin-top:16px;display:flex;gap:12px;justify-content:center">
+          <button class="btn primary" id="startGame">Start Game</button>
+          <button class="btn" id="resetGame">Reset</button>
+        </div>
+
+        <div style="margin-top:14px;color:var(--muted)"><strong id="moves">0</strong> moves • <strong id="matched">0</strong> matched • <strong id="time">0s</strong></div>
+      </div>
+    </section>
+
+    <!-- Section 4: Make a Wish / Cake -->
+    <section>
+      <div class="panel" style="text-align:center">
+        <h2 style="color:var(--neon-pink)">Make a Wish — Blow out the Candles</h2>
+        <p style="color:var(--muted)">Allow mic access, then blow into your mic (or press Blow). Candles will extinguish and confetti will celebrate! ✨</p>
+
+        <!-- cake area is in normal document flow so it won't overlap other text -->
+        <div class="cake-area">
+          <div class="cake-plate" role="img" aria-label="birthday cake">
+            <div class="cake-top" id="cakeTop">
+              <div class="candleSmall pink"><div class="flameSmall"></div></div>
+              <div class="candleSmall purple"><div class="flameSmall"></div></div>
+              <div class="candleSmall cyan"><div class="flameSmall"></div></div>
+            </div>
+          </div>
+
+          <div class="wish-msg" id="wishMsg">✨ Your wish came true! ✨</div>
+
+          <div style="display:flex;gap:10px;margin-top:10px;justify-content:center">
+            <button class="btn primary" id="blowBtn">Blow (Mic)</button>
+            <button class="btn" id="relightBtn">Relight</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Outro / Gift -->
+    <section>
+      <div class="panel" style="text-align:center">
+        <h2 style="color:var(--neon-purple)">
+          <a href="https://www.amazon.com/" target="_blank" style="color:var(--neon-purple); text-decoration:none;">
+          Open Your Gift 🎁
+          </a>
+        </h2>
+        <a href="https://www.amazon.com/" target="_blank" class="gift-btn">🎁 Open Gift on Amazon</a>
+
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:18px">
+          <button class="btn primary" id="openGift">Open Gift</button>
+          <button class="btn" id="downloadCard">Download Card</button>
+        </div>
+
+        <p style="margin-top:26px;color:var(--muted)">You are loved beyond words — happy birthday! 💖</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>© 2025 — Made with love ✨</footer>
+
+<script>
+/* ----------------------------
+  Utilities & Globals
+-----------------------------*/
+const sections = Array.from(document.querySelectorAll('section'));
+function scrollToSection(i){ if(sections[i]) sections[i].scrollIntoView({behavior:'smooth'}); }
+
+/* ----------------------------
+  Stickers (beneath content)
+-----------------------------*/
+const stickersRoot = document.getElementById('stickers');
+const stickerPool = ['🎈','🎀','🎊','💖','🧁','🌸','🦋','✨'];
+function spawnStickers(n=12){
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className='sticker';
+    el.textContent = stickerPool[Math.floor(Math.random()*stickerPool.length)];
+    el.style.left = (5 + Math.random()*90) + '%';
+    el.style.top = (5 + Math.random()*80) + '%';
+    el.style.fontSize = (14 + Math.random()*26) + 'px';
+    stickersRoot.appendChild(el);
+    (function loop(e){
+      const dur = 6000 + Math.random()*8000;
+      e.animate([{transform:'translateY(0) rotate(0)'},{transform:`translateY(${(Math.random()*20-10)}px) rotate(${(Math.random()*20-10)}deg)`},{transform:'translateY(0) rotate(0)'}], {duration:dur, iterations:Infinity, easing:'ease-in-out'});
+    })(el);
+  }
+}
+spawnStickers(14);
+
+/* ----------------------------
+  Typing animation for dedication
+-----------------------------*/
+const typingText = document.getElementById('typingText');
+const message = `Philippians 1:6\n\nBeing confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus.\n\nHappy 19th Birthday — may your days be full of light, love and laughter. 💖`;
+function typeOut(text, el, speed=28){
+  el.innerHTML='';
+  let i=0;
+  (function t(){
+    if(i<text.length){
+      const ch = text[i++];
+      el.innerHTML += (ch === '\n' ? '<br>' : ch);
+      setTimeout(t, speed + Math.random()*28);
+    } else {
+      el.innerHTML += `<div style="margin-top:12px;color:var(--muted);font-size:13px">— Love, always</div>`;
+    }
+  })();
+}
+typeOut(message, typingText);
+
+/* ----------------------------
+  Theme accent toggle (neon pink/purple)
+-----------------------------*/
+const themeToggle = document.getElementById('themeToggle');
+let themeState = 0;
+const themeSets = [
+  {'--neon-pink':'#ff4fa2','--neon-purple':'#b07bff','--neon-cyan':'#7ae7ff'},
+  {'--neon-pink':'#ff8fb1','--neon-purple':'#9b5bff','--neon-cyan':'#7ae7ff'}
+];
+themeToggle.onclick = ()=>{
+  themeState = (themeState + 1) % themeSets.length;
+  const set = themeSets[themeState];
+  Object.keys(set).forEach(k => document.documentElement.style.setProperty(k, set[k]));
+  createConfetti(18);
+};
+
+/* ----------------------------
+  Music player using YouTube embed (simple controls)
+-----------------------------*/
+const songSelect = document.getElementById('songSelect');
+const playMusic = document.getElementById('playMusic');
+const pauseMusic = document.getElementById('pauseMusic');
+const stopMusic = document.getElementById('stopMusic');
+const ytWrap = document.getElementById('ytWrap');
+const ytPlayer = document.getElementById('ytPlayer');
+
+let currentVideoId = '';
+playMusic.addEventListener('click', ()=>{
+  const id = songSelect.value;
+  if(!id){ alert('Please choose a song.'); return; }
+  if(id !== currentVideoId){
+    currentVideoId = id;
+    ytPlayer.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    ytWrap.style.display = 'block';
+  } else {
+    const src = ytPlayer.src;
+    if(!src.includes('autoplay=1')) ytPlayer.src = src.includes('?') ? src.replace('autoplay=0','autoplay=1') : src + '?autoplay=1';
+  }
+  createConfetti(12);
+});
+pauseMusic.addEventListener('click', ()=> {
+  if(ytPlayer.src) ytPlayer.src = ytPlayer.src.replace('autoplay=1','autoplay=0');
+});
+stopMusic.addEventListener('click', ()=> {
+  ytPlayer.src = '';
+  currentVideoId = '';
+  ytWrap.style.display = 'none';
+});
+
+/* ----------------------------
+  Confetti: continuous small bursts + on-demand
+-----------------------------*/
+const confettiRoot = document.getElementById('confetti-root');
+function createConfetti(amount=30){
+  const colors = [
+    getComputedStyle(document.documentElement).getPropertyValue('--neon-pink').trim() || '#ff4fa2',
+    getComputedStyle(document.documentElement).getPropertyValue('--neon-purple').trim() || '#b07bff',
+    getComputedStyle(document.documentElement).getPropertyValue('--neon-cyan').trim() || '#7ae7ff'
+  ];
+  for(let i=0;i<amount;i++){
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = (Math.random()*100) + '%';
+    el.style.top = (-10 - Math.random()*20) + 'vh';
+    el.style.width = (6 + Math.random()*12)+'px';
+    el.style.height = (6 + Math.random()*12)+'px';
+    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    el.style.borderRadius = (Math.random()>0.5? '2px' : '50%');
+    el.style.animation = `confettiFall ${(2 + Math.random()*2)}s linear forwards`;
+    confettiRoot.appendChild(el);
+    setTimeout(()=> el.remove(), 4500);
+  }
+}
+/* continuous gentle confetti: small bursts every 3s */
+const confettiInterval = setInterval(()=> createConfetti(8), 3000);
+window.addEventListener('beforeunload', ()=> clearInterval(confettiInterval));
+
+/* ----------------------------
+  Memory game implementation
+-----------------------------*/
+const startGameBtn = document.getElementById('startGame');
+const resetGameBtn = document.getElementById('resetGame');
+const memoryGrid = document.getElementById('memoryGrid');
+const movesEl = document.getElementById('moves');
+const matchedEl = document.getElementById('matched');
+const timeEl = document.getElementById('time');
+
+let memoryCards = [], flipped = [], matched = [];
+let moves = 0, timerInterval = null, startTime = 0, gameActive = false;
+
+function initMemory(){
+  gameActive = true;
+  const pool = ['🎂','🎈','🎁','🎉','🎀','🎊'];
+  memoryCards = pool.concat(pool).sort(()=>Math.random()-0.5);
+  flipped = []; matched = []; moves = 0;
+  movesEl.textContent = '0'; matchedEl.textContent = '0'; timeEl.textContent = '0s';
+  renderMemory();
+  startTime = Date.now();
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(()=> {
+    const s = Math.floor((Date.now()-startTime)/1000);
+    timeEl.textContent = s + 's';
+  }, 1000);
+}
+function renderMemory(){
+  memoryGrid.innerHTML = '';
+  memoryCards.forEach((c,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'cardBtn';
+    if(matched.includes(i) || flipped.includes(i)){
+      btn.classList.add('flipped');
+      btn.innerHTML = `<span>${c}</span>`;
+    } else { btn.textContent = '?' }
+    btn.addEventListener('click', ()=> flipCard(i));
+    memoryGrid.appendChild(btn);
+  });
+}
+function flipCard(i){
+  if(!gameActive) return;
+  if(flipped.includes(i) || matched.includes(i)) return;
+  flipped.push(i);
+  renderMemory();
+  if(flipped.length === 2){
+    moves++; movesEl.textContent = moves;
+    const [a,b] = flipped;
+    if(memoryCards[a] === memoryCards[b]){
+      matched.push(a,b);
+      matchedEl.textContent = (matched.length/2);
+      flipped = [];
+      renderMemory();
+      if(matched.length === memoryCards.length){
+        gameActive = false;
+        clearInterval(timerInterval);
+        createConfetti(28);
+        document.getElementById('wishMsg').classList.add('visible');
+      }
+    } else {
+      setTimeout(()=> { flipped = []; renderMemory(); }, 700);
+    }
+  }
+}
+startGameBtn.onclick = initMemory;
+resetGameBtn.onclick = ()=> {
+  gameActive=false; memoryGrid.innerHTML=''; moves=0; movesEl.textContent='0'; matchedEl.textContent='0'; timeEl.textContent='0s';
+  clearInterval(timerInterval);
+};
+
+/* ----------------------------
+  Cake mic blow
+-----------------------------*/
+const blowBtn = document.getElementById('blowBtn');
+const relightBtn = document.getElementById('relightBtn');
+const wishMsg = document.getElementById('wishMsg');
+let micStream=null, audioCtx=null, analyser=null, listening=false;
+const flameEls = Array.from(document.querySelectorAll('.flameSmall'));
+
+async function startMic(){
+  if(listening) return;
+  try{
+    micStream = await navigator.mediaDevices.getUserMedia({audio:true});
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaStreamSource(micStream);
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    source.connect(analyser);
+    listening = true;
+    detectBlow();
+  }catch(e){
+    alert('Microphone access needed for blow feature. You can also press Blow twice as fallback.');
+  }
+}
+function detectBlow(){
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  const threshold = 110;
+  let blowDetected = false;
+  function loop(){
+    if(!listening) return;
+    analyser.getByteFrequencyData(data);
+    const avg = data.reduce((s,v)=>s+v,0)/data.length;
+    if(avg > threshold) blowDetected = true;
+    if(blowDetected){
+      extinguish();
+      blowDetected=false;
+      listening=false;
+      if(micStream){ micStream.getTracks().forEach(t => t.stop()); micStream=null; }
+      if(audioCtx){ try{ audioCtx.close(); }catch(_){} audioCtx=null; }
+      return;
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+function extinguish(){
+  flameEls.forEach(f=> f.style.display='none');
+  wishMsg.classList.add('visible');
+  createConfetti(40);
+}
+function relight(){
+  flameEls.forEach(f=> f.style.display='block');
+  wishMsg.classList.remove('visible');
+  listening=false;
+}
+
+/* blow button: start mic or fallback click */
+let fallbackClicks = 0;
+blowBtn.addEventListener('click', async ()=>{
+  if(!listening && !micStream){
+    await startMic();
+  }
+  // fallback: two clicks will extinguish if mic access not possible
+  fallbackClicks++;
+  setTimeout(()=> { fallbackClicks = 0; }, 1200);
+  if(fallbackClicks >= 2 && !listening){
+    extinguish();
+    fallbackClicks = 0;
+  }
+});
+relightBtn.addEventListener('click', relight);
+
+/* Start button scroll */
+document.getElementById('startBtn').addEventListener('click', ()=> scrollToSection(1));
+
+/* gift & download placeholders */
+document.getElementById('openGift').addEventListener('click', ()=> { alert('Surprise! Replace this with your gift video/gallery.'); createConfetti(28); });
+document.getElementById('downloadCard').addEventListener('click', ()=> { alert('Download placeholder — implement save or print here.'); });
+
+/* initial placeholder and gentle confetti */
+(function initial(){
+  memoryGrid.innerHTML = '<div style="grid-column:1/-1;color:var(--muted);padding:16px;border-radius:12px;background:rgba(255,255,255,0.02)">Press "Start Game" to begin the memory challenge.</div>';
+  setTimeout(()=>createConfetti(10),700);
+})();
+
+</script>
+</body>
+</html>
