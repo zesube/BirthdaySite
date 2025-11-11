@@ -36,12 +36,3 @@ It combines glowing **neon aesthetics**, **smooth animations**, **music**, **con
 ### 🪩 6. Gift Reveal Section  
 - Neon glowing text and Amazon link  
 - Includes a **direct link**:  
-  ```html
-  <h2 style="color:var(--neon-purple)">
-    <a href="https://www.amazon.com/" target="_blank" style="color:var(--neon-purple); text-decoration:none;">
-      Open Your Gift 🎁
-    </a>
-  </h2>
-  <p style="color:var(--muted)">Click the button to reveal or link to a gallery/video.</p>
-  <a href="https://www.amazon.com/" target="_blank" class="gift-btn">🎁 Open Gift on Amazon</a>
-
